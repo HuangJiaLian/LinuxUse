@@ -1,0 +1,4100 @@
+1.PDF阅读器 Ctrl+F 找特定的词语；F5 Run document as presentation 
+
+2.A common convention is to use uppercase letters to designate constants and lower case letters for true variables.
+ 
+4. ftp>ls 500 Illegal PORT command. 输入passive mode解决 
+
+5.c语言头文件 They are supplied by the system to support the compilation of every mplaprogram. If we look in /usr/include, we can see them: ls /usr/include 
+
+6.源码安装的文件位置 Source code installed by your distribution will be installed in /usr/src, while source code intended for use by multiple users is usually in- stalled in /usr/local/src. 
+
+7.ftp File Transfer Protocol FTP (in its original form) is not secure, because it sends account names and passwords in cleartext. This means that they are not encrypted and anyone sniffing the network can see them. Because of this, almost all FTP done over the Internet is done by anonymous FTP servers 
+
+8.SSH (Secure Shell) 
+
+9.mplayer mms://enmms.chinabroadcast.cn/fm91.5 听收音机
+
+10. mms电台地址
+CRI环球网络电台华盛顿台 mms://weblive.cri.cn/jyw
+CRI怀旧金曲音乐频道 mms://live.cri.cn/oldies
+CRI乡村民谣音乐频道 mms://live.cri.cn/country
+CRI英语漫听电台 mms://live.cri.cn/english
+
+11.查字典 
+curl dict://dict.org/d:love
+
+12.定时做事，定时任务
+crontab –e
+10 18 * * * /bin/ cleanTrashCan
+每天的下午 6 点 10 分执行 cleanTrashCan 脚本
+30 8  * * * export DISPLAY=:0 && /usr/bin/notify-send -t 40000 -i /usr/share/pixmaps/faces/7_panda.png "温馨提示" "`whoami`,你打卡了吗?"
+
+13.
+asciiquarium 水族馆
+
+14.
+256dd
+216kk
+
+
+15.
+Unable to lock directory /var/lib/apt/lists/
+sudo rm /var/lib/apt/lists/lock
+
+
+16.stardic
+词典的地址
+http://download.huzheng.org/
+
+17.pip 更新软件
+pip list --outdated
+pip install --upgrade SomePackage
+
+常用的pip命令方式有：
+安装：pip install  packageName
+卸载：pip uninstall packageName
+
+
+18.经纬度
+南充	106.06,30.80
+简阳	104.53,30.38
+
+
+19.树莓派上网
+用串口连接树莓派
+lsusb -v 看看无线网卡详细的信息
+ifconfig 看看wlan0的信息
+vi /etc/network/interfaces 
+修改文件成下面这样
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-ssid  A17--406-2
+wpa-psk  1234567890
+立即连接WIFI
+sudo /etc/init.d/networking restart
+
+树莓派备份已有镜像:
+1.将sd卡插入读卡器，连接到电脑
+2.sudo fdisk -l 查看sd卡的设备名称 例如/dev/sdb 可以通过拔插或容量的方式确定设备名称
+3.使用dd命令将镜像写入到PC本地磁盘: sudo dd if=/dev/sdb of=~/raspbian_backup.img 
+根据你的设备名做相应的更改
+4.(可选)削减镜像的大小, 通过上面的操作得到的镜像是原始SD卡的容量大小,可以通过下面的操作削减
+镜像:
+wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+chmod +x ./pishrink.sh
+sudo ./pishrink.sh ./raspbian_backup.img
+
+树莓派恢复镜像:
+1.SD卡通过读卡器连接到电脑
+2.确保SD卡的所有分区都没有被挂载
+sudo mount | grep sdb (sdb替换为你自己的SD卡设备名称)
+若为空白输出那么就没有什么事，否则：
+sudo umount /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdb4 具体多少个分区视情况而定
+3.使用dd命令烧写镜像到SD卡
+sudo dd if=~/raspbian_backup.img of=/dev/sdb
+
+
+20.LinuxMint回收站的地址
+~/.local/share/Trash/files/
+
+
+21.
+GNOME, holding the Ctrl+Shift keys while dragging a file will create a link rather than copying (or moving) the file
+
+
+22.
+ls > playlist.txt 
+awk '{print "./",$0}' playlist.txt | sed 's/.\/ /.\//g' | nl > play.txt
+awk的作用是加上'./'; sed的作用则是去掉它后面的空格。
+mplayer -shuffle -playlist playlist.txt 按照播放列表来弄
+
+
+23.mplayer -shuffle -playlist playlist.txt
+这是随机播放。如果要按照playlist.txt的顺序播放，就去掉 -shuffle.
+
+
+24.百度云 命令行 
+我自己在本地建立了一个同步盘 ~/Bypy 以后文件都在这个文件中进行
+用法：
+baidu -h  帮助
+baidu ls 查看目录
+baidu -v syncup 本地同步到云(-v选项显示一些进程信息)
+baidu -v syncdown 云同步到本地
+baidu compare 比较 本地和云端的文件
+baidu   rm  /hello3.txt  删除云端根目录（其实是"/apps/bypy"里面的目录）
+baidu mkdir /PS 在云端根目录下建立文件夹PS
+baidu downfile /hello1.txt 在根目录下下载hello1.txt 文件到当前文件夹
+baidu rm /  删除云端根目录下的所有文件和文件夹
+baidu downdir /PS  将云端根目录下的PS 文件夹下的所有文件（不包含文件夹本身）下载到当前文件夹
+
+
+
+25.树莓派命令行挂载U盘
+插入U盘
+ls /dev/sd*  其中sda1就是U盘
+cd ~
+mkdir USB
+sudo mount -o rw /dev/sda1  ~/USB (-o 表示选项，rw 赋予读和写的权限，挂载在USB文件夹里面)
+cd ~/USB ；ls 便可以看到 U盘里面的文件了
+sudo umount  ~/USB 用完之后卸载U盘
+PS：sudo apt-get install usbmount 
+安装了这个工具会自动挂载 
+文件在/media/usb0 中
+
+
+26.树莓派检测周围的无线网络
+sudo iwlist wlan0 scan 
+
+
+27.LinuxMint 的有线: 
+	A:192.168.23.3
+	N:255.255.255.0
+	G:192.168.23.1
+     树莓派的有线ip:192.168.23.23
+
+28.配置树莓派静态IP地址
+sudo vim /etc/network/interfaces
+
+auto lo  
+  
+iface lo inet loopback  
+iface eth0 inet static  
+  
+address 192.168.1.222  
+netmask 255.255.255.0  
+gateway 192.168.1.1  
+  
+allow-hotplug wlan0  
+iface wlan0 inet manual  
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf 
+
+sudo service networking restart（文件修改后重启网络服务）
+
+29.树莓派终端设置
+sudo raspi-config
+
+30.美剧《美人鱼h2o》
+
+31.ssh 连接树莓派 
+在mint终端输入
+ssh 192.168.23.23 -l pi
+
+32.vnc登陆树莓派
+
+vim ~/.vnc/xstartup
+去掉下面两行注释
+unset SESSION_MANAGER  
+exec /etc/X11/xinit/xinitrc  
+重启vnc server
+vncserver -kill :1  
+vncserver :1  
+可选：修改分辨率
+vi /usr/bin/vncserver  
+geometry = “1280×1024″;  
+
+然后在mint终端输入 vncviewer  
+然后按提示输入 192.168.23.23:1i(树莓派的IP和桌面号) 和 jackhuan(密码)
+
+33.树莓派中开启FTP服务
+sudo service vsftpd start
+
+34.linux Mint 启动更改防火墙：
+     开启/关闭防火墙：
+     sudo ufw enable|disable
+
+10.42.0.1
+
+35.http://download.kiwix.org/zim
+这个 Ubuntu服务器是怎么做出来的
+
+36.ftp://ftp.linuxjournal.com/pub/tux/ 
+tux杂志
+
+37.by no means 绝不是
+
+39.挂载我的另一个硬盘
+udisksctl mount -p block_devices/sda1
+
+40.学习嵌入式Linux好的开发板
+BeagleBoard PandaBoard
+
+41.dmesg 显示登陆信息
+
+42.窗口管理器没有最大化最小化的处理
+终端输入： xfwm4 --replace
+
+43.apt-get autoclean 从硬盘中删除.deb包，没有太大的影响
+
+44.vim技巧
+	:x 保存并退出　和ZZ :wq是一样的
+
+       复制y,可以在v（可视模式下选择要复制的文字）
+	还可以 yy 复制整行 3yy 复制3行 yw 复制一个字 
+	粘贴p
+移动光标：
+	和：set number 结合使用可以达到很好的效果
+	gg  跳至文件第一行
+	G 跳至文件最后一行 
+	73G  跳至73行和:73是一样的
+
+        /+字符 向后查找那个字符 另外按n 和 N 浏览结果
+       ？+字符 向前查找那个字符 再按n N 浏览结果
+	这两个东西可以这样用：
+	将PDF格式的书转化为文本格式
+	用vim去阅读，阅读的时候可以做好标签：
+	例如：J-m:Jack's bookmark J-n:Jack's note
+	然后用/ ？去定位
+	配合正则表达式一起使用，以便达到更强大的功能
+	/H..  		搜索以H开头的，后面跟任意两个字符的模式
+	/H[a-z][a-z]	搜索以H开头的，后面跟任意两个小写字母的
+	/H[a-z]*y		搜索以H开头的，后面跟0个或者多个小写字母，再后面跟一个y的模式
+
+	0 跳到一行的开始
+	^ 跳到一行第一个非空格非制表符的字符上
+	$ 跳到一行的结束
+	w 移到下一个单词的词首
+	e 移到下一个单词的词尾
+	b 移到上一个单词的词首
+
+	W E B 功能类似 但是可以忽略标点符号 
+	
+	） 移动到下一个句子
+	（移动到上一个句子
+	
+	} 移动到下一个段落
+	{ 移动到上一个段落
+
+	句子后面至少有两个空格
+	段落后面至少要空一行
+
+	H 移到屏幕的顶部
+	M 移到屏幕中间
+	L 移到屏幕的最后一行
+	
+	^F 移动到下一屏
+	^B 移动到上一屏
+	^D 下移半屏
+	^U 上移半屏
+	
+	'' 回跳 感觉这个很重要
+	下面这个回跳更酷：
+		m + 一个字母 mark 
+		要回跳的时候 ‘ + 那个字母
+		例如可以这样：mm 然后 ’m  或者ma 然后'a 炫酷啊，
+		还可以标记多行
+
+插入文本：
+	i
+	I 在当前行的开头插入文本
+	a
+	A 在当前行的最后插入文本
+	很重要的提示：
+	在输入模式下面，可以利用^W 删除键入的最后一个词
+	^U 删除整行 而不用离开输入模式
+修改文本：
+	r replace 不用切换到输入模式（修改少量的错误很方便）
+	R 替换光标之后的内容
+	s substitute 替换 将当前光标位置的字符删除，并进入输入模式
+	C change 将光标开始到这一行结束的所有内容删去，并进入输入模式
+	S 或者 cc 替换一整行 即删除这一行所有的内容，并进入输入模式
+	cw change word 替换一个词
+	c+move :cb ce cw 自己想把 不行自己试试
+	ce :to change until the end of a word 修改整个单词
+	同理：cw 改一个单词 c2w 改两个单词 c$ 改接下来的整行
+
+替换文本：记住由这个“：”开头的命令都是面向行的
+	：r/Vim/vim/ 将当前行的第一个Vim 替换为 vim
+	：r/Vim/vim/g 将当前行的所有Vim 替换为 vim
+	：r/Vim/vim/gc 将当前行的所有Vim 替换为 vim 并经过你的确认 这个就很有意思了
+	：r/VIM//g	将这行所有的VIM 删除（那就是替换为空）
+	：11r/Jack/jack/g 将第11行的所有Jack替换为jack
+	：22,23s/Jack/jack/gc 将第22到23行的所有Jack替换为jack并经过你的确认
+	接下来好戏来了：
+	Tip:"."代表当前行，"$"代表编辑缓冲区最后一行,"%"代表所有行
+	:.,$s/Jack/JACK/gc 将当前行到最后一行的所有Jack替换为JACK并经过你的确认
+	:1,$/Jack/JACK/gc 将第一行到最后一行的所有Jack替换为JACK并经过你的确认
+	上面那条语句还有更简单的做法：
+	:%s/Jack/JACK/gc
+
+删除文本：
+	x 删除当前光标处的字符
+	X删除光标左边的字符
+	D 删除从当前光标到本行末尾的字符
+	d+move 删除从当前光标到move所给位置处 例如 dw 删除一个词 d)删除下一句话 d}删除下一段 db向后删除一个单词 dG
+	删除光标之后的所有 dgg删除光标之前的所有
+	删除每一行第一个字符:%s/^.//g
+	删除列：借助Visual模式：比如想要删除前三行的前三列内容
+		1. 把光标移动到第一行的第一个字符
+		2. 按下Ctrl+V组合键
+		3. 移动光标到第三行的第三列
+	_	4. 按x键 
+撤销或重复改变：
+	u 撤销上一次操作
+	U撤销对这一行的所有操作
+	. 重复上一命令对文件的修改
+	
+恢复删除：
+	编号缓冲区（numbered buffer）总共有9个缓冲区（存的删除的行）
+	"1p 将编号缓冲区1插入到当前行的下面
+	"1P 将编号缓冲区1插入到当前行的上面
+	通过这种方式，可以恢复并插入之前9次删除的内容
+	可以这样用:
+	"lpu.u.u 将原来删除的行插入到当期行的下方（感觉很有用）
+	系统失败后的文件恢复
+	vi -r	
+
+删除文中所有的 '-':
+	:%s/-//gc
+移动文本：
+	无名缓冲区(unamed buffer)保存上一次删除的副本，在任何时候都可以用p或P将无名缓冲区的内容复制到编辑缓冲区
+	p:加到光标之后
+	P:加到光标之前
+	xp 调换两个字符
+	deep 调换两个单词 （在第一个单词的最左边的空格处按键）
+	ddp 调换两行(太有用了)
+		
+复制文本:y(yank,接出)
+	yw 		接出一个单词 
+	y10w 	接出10个单词
+	y10W	接出10个词，不算标点
+	yb		向后接出一个词
+	y2)		接出两个句子
+	y5}		接出两个段落
+	yy		接出一行
+	10yy=10Y	接出10行
+	y$		接出光标到后面的所有
+	y0		接出光标到之前的这一行的所有
+	
+改变字母的大小写：～
+	大小写呼唤
+	～
+	7～ 改变7个字母的大小写
+
+设置选项:
+	:set number
+	:set nonumber
+	:set all 显示所有选项的值
+	:set 显示所有不是默认值的选项
+	:set wm=10  vi设置自动换行　wrapmagin 与右边界的距离
+	:set tabstop=4 设置tab的长度
+分割和连接行:
+	r<return> 分割行即将这个字符替换为新行的字符
+	J 连接这一行和下一行
+	4J 连接这一行和下面4行（有用啊）
+
+复制和移动行:
+	:co 	copy
+	:m 	move
+	:5co10	copy第五行，插入到第10行下面
+	:4,8co20	copy 4到8行，插入倒第20行下面
+	:5m10	move 第5行，插入到第10行下面(这些命令太酷了)
+	
+
+输入shell命令：
+	:!date 执行date命令
+	:sh		在vim 里面启动一个shell 可以输入多个命令 用完之后输入exit停止shell然后回到vim（很有用）
+	:r!date 	执行date命令，并将输出插入到编辑缓冲区 光标的下一行 r:read
+	:0r!ls	读ls的内容插入到第0行后面，即开头
+	:35r!date	读date的内容插入到第35行后面
+	:$r!ls	插入到最后
+
+用程序处理数据：fmt
+	:5!!sort	对接下来的五行排序 （但是我弄到怎么要少一行）
+	:10!!fmt 	对接下来的10行格式化
+	
+将数据写入文件：
+	:w		写入原有文件
+	:w file	写入新文件file中
+	:w! file	覆盖已有文件file
+	:w>> file 追加到file中
+	:10w!>> file 将第10行写入file并覆盖原有的file
+	
+切换到新文件:
+	:e document  从而不用关闭vim 
+
+使用缩写:(abbreviate)
+	:ab Jack Huang Jack Huang 	创建一个缩写jk 每次在输入模式下输入单独的词 Jack Huang 时 vim就会自动将其替换为 Jack Huang
+	:una Jack Huang			取消这个缩写
+	:ab				查看所有的缩写 
+	这个东西太有用了 太酷了
+
+宏:	Vim里面的键都快要用完了
+	可以用作宏的字符有：K q v V @ \ ^@ ^A ^K ^O ^T ^X 
+	:map K deep	将键入K替换为动作deep 交换两个单词（酷） 
+	:map * I/*^V<Esc>A */^V<Esc> 在屏幕上看到的是 :map * I/*^[A*/^[
+	<Esc>码实际就是^[ 	退格键是^H	制表符是^I
+	创建了一个宏 * 为C语言添加注释
+	解释:首先 键入I 在行的开头进入输入模式 然后键入/*
+		为了在宏中插入一个<Esc>码，我们键入^V<ESC>(^V[Ctr-V]告诉vi接下来的键要从字面上解释)
+		接下来我们使用 A(append，追加)命令在行的末尾进入输入模式，键入一个*/
+		最后为了退出输出模式，我们再次键入<Esc>键 
+	总结一下：宏就是定义一连串的键入动作
+	:map 显示所有的宏
+	:unmap * 移除宏
+	我的神器（自动写C语言开始的代码）:太牛了
+	:map K I#include <stdio.h>^M^Mint main(int argc,char *argv[])^M^M{}^[OD^M^M^M^[OA^Ireturn 0 ;^[OA^[OA^M^I
+
+vim屏幕拆分：
+	:split（开启另一个窗口察看同一文件）:sp
+     	:split 文件名（开启另一个窗口察看指定文件）
+	:vsplit（开启另一个窗口察看同一文件） :vs
+     	:vsplit 文件名（开启另一个窗口察看指定文件）
+	^W+w：在窗口之间切换
+	:q 关闭当前窗口
+	:qall 关闭所有窗口
+	:only 只留当前窗口
+	
+初始化文件: .exrc .vimrc 读作 dot-E-C-R-C   dot-vim-R-C
+	rc标记代表: run commands
+	
+
+vim学习和帮助:
+	:help
+	:help user-manual
+	:help differences
+
+我的.vimrc设置:
+set mouse=a
+set backspace=indent,eol,start
+set autoindent
+set cindent
+syntax on
+set nu
+set tabstop=4
+
+使用系统剪贴板：
+sudo apt-get install vim-gtk
+"+y
+"+p
+vmap <c-c> "+y
+
+45.
+
+46.比较下载的文件是否完整 
+	md5sum linuxmint-17.2-cinnamon-64bit.iso 
+
+47.tty终端输入：sudo fbterm 
+	可以在终端显示中文 而不是方框框
+48.linux 下的U盘启动盘制作 Unetbootin 
+
+49.图片转化为PDF
+	convert 2015-11-13-202025.jpg Jack.pdf
+
+50.终端看图片
+ristretto + 图片名称
+
+51.cowsay 
+	-d 感觉牛要死了
+	-p 感觉牛很怀疑（paranoia[,pærә'nɒiә]）
+	-g 牛很贪婪 （greedy）
+	-s 牛喝醉了 （stoned）
+	-t 牛很累
+	-w 牛超级有精神
+	-y 牛犊（youthful appearance）
+
+52.不用输入 y 的软件升级
+	sudo apt-get -y  upgrade 
+
+53.找到登陆信息的错误项
+	dmesg | grep 'error'
+
+54.firefox +flashgot 没有弹窗的解决方法
+	sudo apt-get install xterm
+
+56.mp3分割
+mp3splt  -t  10.00  2016肖秀荣知识点提要配套音频-史纲第六章.mp3 
+10分钟一段进行分割
+
+57.pdf 转 txt
+pdftotext -layout 2011年全国硕士研究生入学考试英语（附答案）.pdf
+-layout 保持原来pdf的布局
+
+58.txt 转 pdf 
+cat hello.txt | groff > hello.pdf
+bug: 汉字没有办法输出到pdf中 
+
+59.为什么有些可以在shell中运行的程序不支持 *正则表达式
+不如这个就不行： pdftotext * 
+
+
+61.用一张很大的纸将自己的所学到的东西总结起来，这样对自己有更深层次的了解。
+
+62.处理pdf
+pdfshuffler [file1] [file2] ...
+
+63.xfce 添加快捷键（很方便）
+vim ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml 
+
+64.使用下列命令来建立一个自己的 autostart.sh 文件：
+    vim ~/.config/openbox/autostart.sh
+
+65.xfce4-screenshooter -r -s Pictures/Jietu/
+
+
+66.tint2 wbar obconf obmenu scrot pacman gtk-chtheme  docky 
+
+
+67.厕所的感应器应该多一点延时，并且只冲一次水。
+
+68.ls REC{001..030}.mp3
+
+69.Mint主页
+https://search.yahoo.com/yhs/web?hspart=ddc&hsimp=yhs-linuxmint&type=__alt__ddc_linuxmint_com
+
+
+69.不见鼠标的处理方法
+ctrl+alt+f1 回到tty1然后再回到图形界面
+
+70.娜娜卡号
+62284 8052 83271 04477 
+	手机
+13719052864（也是支付宝账号）
+
+71.各种解压命令
+tar zxvf RaceTheSun_1.10_LINUX.tar.gz
+tar zxvf xxx.tgz
+tar -xf Machinarium-Linux.tar 
+tar -jxvf    xx.tar.bz2
+tar xvJf  ***.tar.xz
+unzip -O GBK 中文压缩文件.zip 
+(-O 大写指定编码类型，这样解压windows里面的文件就不会有乱码了)
+unrar x texasware.rar .. (全路径解压到父目录)
+7za e myfiles.7z
+
+72.压缩文件
+     Create archive.tar from files foo and bar.
+      tar -cf archive.tar foo bar
+      zip file.zip * 将当前文件下的所有文件压缩成zip格式的压缩包
+      zip -r -q -o shiyanlou.zip /home/shiyanlou 打包文件夹
+      zip -r -l -o shiyanlou.zip /home/shiyanlou 这样可以让
+          Linux下打包的文件在windows里面正常打开（-l 将LF-->CR+LF:
+		Line-Feed---> Carriage-Return+Line-Feed）
+	rar a shiyanlou.rar ~ （a:添加一个目录~到归档文件中）
+73.zathura pdf阅读器
+   anki记忆卡片
+
+74.qq邮箱的配置
+接受邮件的服务器 pop.qq.com
+发送邮件的服务器stmp.qq.com
+
+75.英文图片格式的pdf转化为txt文本
+将pdf转化为tif格式 gs -q -dNOPAUSE -dBATCH -dSAFER -sDEVICE=tiffg4 -sOutputFile=Test_zh.tif -f Test_zh.pdf
+将tif转化为txt格式 	-l选择语言
+
+若要将png图片里面的文字转化为txt
+convert Screenshot.png Test3.tif
+tesseract Test3.tif Test3 -l eng
+tesseract Test.tif Test -l eng
+其实直接来也是可以的
+jack@MOS ~/Desktop/Convert $ tesseract I_H.png I_H  -l eng
+Tesseract Open Source OCR Engine v3.03 with Leptonica
+jack@MOS ~/Desktop/Convert $ cat I_H.txt 
+I have a dream
+
+识别中文
+tesseract  中文.png 中文 -l chi_sim
+
+
+76. linux 下curses库的安装和使用 
+
+sudo apt-get install libncurses5-dev
+
+77.vim 的插件 pathogen(这是一个插件管理器)
+
+78.Debian live的账户密码
+user 
+live
+
+79.uname -a 可以查看内核的版本
+
+80.解决用kde软件kmplot突然闪退的问题
+
+apt install kdelibs-bin kdelibs5-data kdelibs5-plugins
+
+81.PDF阅读器zathura的使用
+^R 	Recolor				夜间模式
+Tab    	索引
+bmark 	Save a bookmark 
+blist 	List bookmarks
+d      	Toggle dual page view
+a, s   Adjust window in best-fit or width mode
+/	搜索特定的词
+-，+，= 	改变大小 
+zI, zO, z0 	同样是改变大小
+mp	做标记p
+'p	跳到p那里去
+
+82. 
+TTS（Text To Speech，文本转语音）文本阅读
+echo "Hello Jack, how are you today?" | flite 可以这样用 不过没有办法读中文
+
+读中文可以用 espeak 
+jack@MOS ~ $ echo "你好 " | espeak -vzh 
+
+83.命令行截图工具scrot 的使用
+	scrot 立即截取全屏，保存到当前目录小
+	scrot -s 选择区域截图，运行命令后用鼠标指定一个矩形的区域
+	scrot -d 5 延时5s截取屏幕
+	scrot -s  -e 'mv $f ~/Picture ' 将获取到的图片作为mv命令的输入 若还要对图片进行后期处理 就显得非常有用
+
+84.ImageMagicK之合成图片
+convert +append 01.png 02.png u.png 将两张图横向合成一张u.png
+
+85.搜狗输入法 ctrl+alt+b可以调出特殊字符
+
+86.合成全景图可以利用Hugin但是这是图形化的工具
+
+87.按照linux风格对C语言代码自动缩进
+indent  -linux  shiyishi.c -o shiyishi.c
+
+88.linux 文件下载
+用linux命令下载全站
+ wget -r -p -k -np http://learn.tsinghua.edu.cn/homepage/2001315450
+-r表示会递归下载下载所有连接 不要单独使用 因为会下载到其他的网站链接
+-np	表示不下载别的站点的链接
+-k表示将下载的网页里的链接修改为本地链接.
+-p获得所以显示网页所需的元素,比如图片什么的
+
+百度网盘的文件最快的下载方法
+用uGget下载 最多设置10个节点速度上M
+
+89.树莓派用网线共享电脑的无线
+	第一步，在电脑上弄一个有线的配置信息，设置IP4 shared to other computers 其他什么都不用改
+	第二步，将可以连上网的无线配置信息，也设置IP4 shared to other computers 其他什么都不用改
+	第三步，设置树莓派的静态IP地址和电脑有线的静态IP地址在同一个网段
+
+90.mint 上用filezela连接树莓派传输文件
+sftp://10.42.0.2
+pi
+jackhuangwoaini1
+
+91.定制自己的系统:
+Remastering tool (mintConstructor): A tool for remastering Linux Mint. It is not installed by default in any Linux Mint edition, but is included in the repositories and used by the developers for creating ISO files. Users can use this tool to create their own distribution based on Linux Mint.
+
+92.Linux 下的串口调试工具 cutecom 试用了一下感觉还可以 
+
+93./usr/share/vim/vim74/doc vim的学习资料
+
+94.packihx sourcefile.ihx >sourcefile.hex intel的hex文件转化为通用的hex文件
+
+95.xsel软件显示剪贴板 鼠标中键缓冲区 用法 
+	xsel -p 显示PRIMARY缓冲区 
+	xsel -b	显示CLIPBOARD缓冲区
+	xsel < README.txt 将README.txt中的内容放到PRIMARY缓冲区
+	或者 cat README.txt | xsel 
+	cat README.txt | xsel -b 弄到CLIPBOARD缓冲区 
+	xsel -c 清空PRIMARY缓冲区
+	xsel -b -c 清空CLIPBOARD缓冲区
+
+96.source ~/.bashrc 刷新.bashrc
+
+97.终端灵活运用
+          Table 8-1: Cursor Movement Commands
+          Key Action
+          Ctrl-a Move cursor to the beginning of the line.
+          Ctrl-f Move cursor forward one character; same as the right arrow key.
+          Ctrl-b Move cursor backward one character; same as the left arrow key.
+          Alt-f Move cursor forward one word.
+          Alt-b Move cursor backward one word.
+          Ctrl-l Clear the screen and move the cursor to th
+
+          Table 8-2: Text Editing Commands
+          Key Action
+          Ctrl-d Delete the character at the cursor location
+          Ctrl-t Transpose (exchange) the character at the cursor location with the
+          one preceding it.
+          Alt-t Transpose the word at the cursor location with the one preceding it.
+          Alt-l Convert the characters from the cursor location to the end of the
+          word to lowercase.
+          Alt-u Convert the characters from the cursor location to the end of the
+          word to uppercase.
+
+          Table 8-3: Cut And Paste Commands
+          Key Action
+          Ctrl-k Kill text from the cursor location to the end of line.
+          Ctrl-u Kill text from the cursor location to the beginning of the line.
+          Alt-d Kill text from the cursor location to the end of the current word.
+          Alt-
+          Backspace Kill text from the cursor location to the beginning of the current
+          word. If the cursor is at the beginning of a word, kill the previous
+          word.
+          Ctrl-y Yank text from the kill-ring and insert it at the cursor location.
+
+98.看安装了什么qq
+dpkg -l | grep qq 
+
+99.微软账号:719668276@qq.com
+       密码:JackHuang
+    skype名:Jack Huang
+    
+edx账号:719668276@qq.com
+   密码:jackhuangwoaini13141314
+
+baidu云账号:719668276@qq.com
+	   密码:jackhuang
+
+github用户名：HuangJiaLian
+	邮箱:719668276@qq.com
+	密码:jackhuangwoaini1
+
+github用户名: MachineLearningG
+jdhml0922
+
+
+
+命令行
+	passphrase:jackhuang
+
+MySQL "root" 密码:jack
+
+主机91网站：密码 jackhuangwoaini1
+	 
+cpanel:用户名 linuxfor
+       密码:w8js845eEU
+
+ftp:账号: jack@linuxforstudents.com
+	  jackhuangwoaini1
+
+ICQ:UIN:687 989 722
+	JackHuangwoaini1
+
+openweathermap.org 
+	账号：jack
+	邮箱：719668276@qq.com
+	密码：jackhuangwoaini1
+	API Key:2b7d35d044c8763deb5309c1d7a2c3f6
+有道API:
+	key:1681836013 
+	keyfrom:linuxforstudents
+
+dropbox:jackhuang719668276@gmail.com
+	jackhuangwoaini1
+
+researchGate:
+	hg08@lzu.edu.cn
+	9861108re
+
+百度翻译：
+APP ID: 20161111000031673
+密钥: pxdy5jYzKatOphVu5FvV
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDA8G1tXBrkh+rvder82zXdhNe4K6MRjNoNMmwfQIl7FAW9FRoXHDxOIASxUcQa0zO9GSWCYDJjizVeJB6C2cQKD8euLbGib9QugibZrVZu3khoIlRqT1XysO187TDPXA96fl8z/l4Flo7d5KasvBdfMIAeB9vglX3kbHHNUD03uNZzL72o6IxMTTEjV01J5e124V5Z/K/GSjXwQvG+/4ahlUyQ8T2PQt/cEyFtapKiFxVvIO0QjzISTqe56l5JUvIOlaq4dZnkDCKOKJzYUA3wKSva0o52/hsCs686Z2Bge1eP8Cr3sRxk2s2hNpNk0yNJrgd+T3/6LowRsbEw766+cKkVvghOvglnpq6pUlZ8ndINUskceOJ/sIvfXVrnCdnNGymHTaLrNySzVU8FfUksQFf6MLxw6DOIbCeZhjTt7JJ0OjNf4dOsJnt9e8YLCxm6BTDCzTsdDzSVVT5sgqWAfSVEsMg2zAgH104ZRasILUTuRC7fEnEBbhvOoXBMlq4RIZ+BBo8p9PQ1xnHuwVrV3+Zx4FPoP5TG3D3BChCUtWykqbmQX+vt6fUlX/DFD2qcM1/Q31btVQafNCpfRtpTaHextiam1zkfst9VgwemuXe7RqXa7yyzoU0zM1VdpLFU3ixjKttsaPX4smmDeJMd0LB8Ay6SxGt/7yrB4aoz5w== company (SparkleShare)
+
+
+aliyun阿里云:
+主机IP：
+120.26.42.7
+
+用户名:hyu2862070001
+绑定邮箱:jackhuang71****76@163.com 
+主机控制台地址:
+https://cp.aliyun.com
+
+FTP登录主机地址:
+hyu2862070001.my3w.com
+用户名:
+hyu2862070001
+
+MySQL数据库连接地址:
+hdm184708416.my3w.com
+用户名:
+hdm184708416
+密码
+jackhuangwoaini1
+
+
+
+快易照 照片  加印
+文件名: SM0500-1705300061
+密码: 04739702
+
+wifi 12041204
+
+qt 官网
+719668276@qq.com
+Jackhuangwoaini1
+
+You have been registered in the VoiceNotebook.com site
+Your login 719668276@qq.com
+Your password zdgbi
+
+百度ocr
+10798639 AppID
+Os1GrdCGKnggslT9n5QEnhX3  API Key
+VbRl52UaqgTGLZV4mNk3BvsI5NGYU2ZQ Secret Key
+
+https://www.vultr.com/
+
+100.github用法
+	On GitHub, saved changes are called commits.
+	
+	Pull Requests are the heart of collaboration on GitHub.
+	When you open a pull request, you’re proposing your changes 
+	and requesting that someone review and pull in your contribution 
+	and merge them into their branch. Pull requests show diffs, 
+	or differences, of the content from both branches. 
+	The changes, additions, and subtractions are shown in green and red.
+
+	命令行用法:
+
+101.xdotool
+		关掉窗口 关闭窗口
+		#!/bin/bash
+		window_ids=$(xdotool search --name "ImageMagick")
+		for id in $window_ids;do
+			xdotool windowclose $id 
+		done
+
+
+102.sudo /etc/init.d/apache2 restart
+    sudo /etc/init.d/mysql restart 
+    
+    sudo cp wp-config-sample.php wp-config.php
+
+103.LinuxForStudents
+
+	选择哪里的主机：准备选择香港主机
+	什么类型:初期选择虚拟主机
+	主机空间：一个连接公网的服务器，24小时运作，服务器的硬盘可以存放网站文件；在服务器中安装一个系统和环境就可以运行网站。
+
+	MySQL数据库：通常是用来存储PHP程序的数据信息的。
+	比如Wordpress的一些配置信息、文章数据等等都是存储在MySQL数据库的。
+	通常，我们需要使用 phpMyadmin 来对MySQL数据库进行操作，所以，一般的主机都是安装了 phpMyadmin程序的。
+
+
+104.毕业设计qq群：
+	156901279
+
+105.男人每秒产生1000个精子，一枚精子1/500mm长
+    精子里面包含23条染色体DNA
+    睾丸管道总共6m长可以容纳10亿枚精子
+    射精相当于一个人在两秒的时间内推进15公里
+    一次大概要射出2.5亿个
+    能力一般的男性射出的精子有80%是不合格的
+    2-3天have sex 可以最高几率受孕
+    进入阴道后30分钟99%的精子会死亡会濒临死亡
+    女性高潮的一个目的是延长性生活后躺卧的时间
+    在进入输卵管之前白细胞会杀死很多精子 到达输卵管口的只有几十个
+    输卵管10cm长是精子的天堂
+    精子能够感受到卵细胞 有目的的游动
+    到最后进入卵细胞之前 精子会爆头 释放一种酶 有利于精子穿透卵细胞外壁
+    最后精子和卵细胞的染色体配对 宣布受精成功 
+
+106.sudo add-apt-repository ppa:yannubuntu/boot-repair
+	sudo apt-get update
+	sudo apt-get install -y boot-repair
+	boot-repair
+
+107.marble 地图软件
+    nmon 系统信息
+	screenfetch 显示系统信息
+	linux_logo	显示logo
+
+108.labxnow
+
+Name: Labx
+Description: LabxNow default project template
+
+Machine: Ubuntu1404
+
+Image: registry.labxnow.com:8080/library/ubuntu1404:latest
+
+IP: 172.168.220.1
+
+	
+109.Jball2d01.c Jball2d02.c bounce2d.c  Jgame03.c
+
+110.娜娜 3.7 始 3.12 完
+    预计 
+111.linux 视频处理 看电影
+	提取视频中的音频 mp4转mp3 
+	mencoder 视频 -of rawaudio -oac lavc -ovc frameno -o XXX.mp3
+		
+	linux下 低性能 放高清视频视频要想不卡 使用 kodi
+	这是专门做这个事情的 
+
+112.	分割视频
+	split -b 215m hello.mp4 a_
+
+113. 2779 4961 FhLmkDgJ
+
+114.
+5个原则
+	1.对你自己有重要关联的内容开始
+	2.把新的语言作为沟通工具去用
+	3.当你先理解沟通的含义，你会下意识获取语言内容
+	4.练好外语功夫，生理训练
+	5.轻松好奇+忍耐歧义=学得快
+7个行动
+	1.大量去听(音速过滤，练好语感，外语思维)，泡脑子
+	2.先窄后宽（相关的内容，喜欢的内容）
+	3.混合已有的词
+	4.注意力放在核心
+	5.找一个语言家长
+	6.模仿面部
+	7.外语链接心中的画面和感觉
+	8.
+
+114.latex使用中文(可能会出错)
+安装 texlive-xetex
+\documentclass{article}
+ \usepackage{fontspec}
+ \setmainfont{WenQuanYi Micro Hei} % 这里WenQuanYi Micro Hei就是系统安装的中文字体
+  \begin{document}
+ \title{latex中文}
+  \author{http://asc.2dark.org}
+ \maketitle 中文段落，好用，方便！
+ \end{document}
+
+xelatex hello.tex
+
+latex常见用法
+
+空心的字符：
+\mathbb{R}
+实心特殊字符:
+\mathcal{R}
+115.让chromium作为翻墙浏览器
+	打开lantern
+	启动chromium 的时候加一句 --proxy-server="localhost:8787"
+	浏览器的所有都通过代理访问
+
+116.	利用蓝灯的代理更新系统
+	http_proxy=http://127.0.0.1:8787 sudo apt-get update
+
+117.职业测试
+	
+Your Result
+Creative Design
+
+You would be suited to work in a creative design job. Such jobs include artist, graphic designer, or web designer.
+
+
+Leadership
+
+Your perfect career would be in Leadership. This career requires skills including management, organization and entrepreneurship. Some such careers include small business owner, event planner, chef of your own restaurant, CEO or president.
+
+118.vimperator的用法
+	y 复制当强的网址到剪贴板和鼠标中键
+	Y 将选中的文字复制到剪贴板和鼠标中键
+	r 刷新
+	H 后退
+	L 前进
+	gt 到下一个tab
+	gT 到下一个tab
+	Ctro+o 历史返回
+	zi 放大
+	zo 缩小
+	
+	
+119.nm-applet 面板网络图标
+
+120.http://www.ppypp.com
+
+121.拆分pdf为一页一页的
+	pdftk 毕业证书.pdf burst
+
+122.安装clang 3.8
+ sudo apt-add-repository "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
+
+sudo apt-get update
+
+sudo apt-get install clang-3.8 lldb-3.8
+
+123.树莓派安装Lantern
+	wget https://github.com/EasyPi/docker-lantern-arm/releases/download/2.2.5/lantern_2.2.5-1_armhf.deb
+	sudo dpkg -i lantern_2.2.5-1_armhf.deb
+	sudo systemctl start lantern
+	sudo systemctl enable lantern
+	curl -x https://127.0.0.1:8787 https://www.google.com/
+
+124.查看磁盘容量 文件大小
+	df -h 
+	du -h
+    查看磁盘分区
+	sudo fdisk -l
+
+125.查看命令是内建命令还是外部命令的方法
+	type exit
+	type firefox
+	type ls
+126.帮助命令
+	ls --help	少
+	man ls		中
+	info ls		多
+
+127.screen 用法 
+	ctrl + a + c 新建一个窗口
+	ctrl + a 切换一个窗口
+
+128.任务计划
+	开启服务
+	sudo service rsyslog start
+	sudo cron －f &
+	
+	设置
+	crontab -e
+	
+	编辑
+	# m h  dom mon dow   command
+	0 0 * * * Pplay_clock_music
+	# 每天 12 点 放闹钟
+	
+	查看
+	crontab -l
+	
+	检测守护进程(要启动了才正真要得)
+	ps aux | grep cron
+	或者
+	pgrep
+	
+	crontab 设置定时提醒
+	*/50 * * * * export DISPLAY=:0 && /usr/bin/notify-send -t 10000 -i /usr/share/pixmaps/faces/7_panda.png "温馨提示" "休息一会吧! `whoami`"
+	
+129.解决依赖关系，要么安装依赖，要么删除相关的软件
+
+130.virtualbox 安装ubuntu后对共享文件价没有权限解决方法
+sudo adduser 用户 vboxsf
+重启
+
+131.我的基本信息
+
+嵌入式软件工程师
+地址:福州市海西科技园东路中青科研中心6层
+电话：15182998005
+邮箱:huangjie@falconpro.cn
+
+132.boxes
+          __   _,--="=--,_   __
+         /  \."    .-.    "./  \
+        /  ,/  _   : :   _  \/` \
+        \  `| /o\  :_:  /o\ |\__/
+         `-'| :="~` _ `~"=: |
+            \`     (_)     `/
+     .-"-.   \      |      /   .-"-.
+.---{     }--|  /,.-'-.,\  |--{     }---.
+ )  (_)_)_)  \_/`~-===-~`\_/  (_(_(_)  (
+(  This is boxes                        )
+ )                                     (
+'---------------------------------------'
+
+echo hello | boxes -d dog
+boxes -l 查看怎么用
+
+在vi 里面调用
+:3!boxes
+将第三行 boxes
+
+133.复古终端 非常酷
+cool-retro-term
+
+134.AlsaMixer
+终端里面调节音量
+
+135.alsa的相关命令
+aplay -l 或者 arecord  -l 列出所有的声卡和数字音频设备
+
+speaker-test -Dplughw:CARD=Device -c2 -twav 测试声音
+
+arecord -Dplug:default -d 3 -r 16000 -c 1 -t wav -f S16_LE test.wav
+录3秒 
+-r 频率
+-c 音轨
+-f 格式
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=de-DE -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+
+136.TTS 比较好的
+ivona
+neospeech
+http://www.lumenvox.com/
+
+Ubuntu下比espeak好的
+sudo apt-get install libttspico0 libttspico-utils libttspico-data
+#!/bin/bash
+pico2wave -l=en-US -w=/tmp/test.wav "$1"
+aplay /tmp/test.wav
+rm /tmp/test.wav
+
+137.Windows 下的操作
+	1.
+	Python whl的安装
+	pip install wheel
+	pip install file.whl
+	1.whl
+
+138.虚拟机相关的问题：
+
+解决虚拟机里面连接USB就卡住，去掉又恢复的问题.
+
+solution to :The specified device is claimed 
+by another driver (usb-storage) on the host
+
+sudo vi /etc/modprobe.d/blacklist.conf
+添加
+# prevent usb-storage from claiming usb-mic
+blacklist usb-storage
+在遇到类似的问题的时候不要那么快放弃，把你能试的方法都
+试完，用不同的方法去做同一件事，或许就发现了答案。这是Jack教会我的。
+
+solution to : Failed to create a proxy device for the USB device. (Error: VERR_READ_ERROR).
+
+	Result Code: 
+	NS_ERROR_FAILURE (0x80004005)
+	Component: 
+	ConsoleWrap
+	Interface: 
+	IConsole {872da645-4a9b-1727-bee2-5585105b9eed}
+
+	sudo pip install -U nltk
+
+
+140.linux tm4c123 energia
+提示错误 error: CORTEX_M4_0: Error connecting to the target: Frequency is out of range.
+解决方法：
+	1.进入Energia官网看Linux下的安装教程
+	2.下载TI udev rules	
+	3.sudo mv /71-ti-permissions.rules /etc/udev/rules.d/
+	4.sudo service udev restart
+	5.If your board is pulled in, unplug it and plug it back in
+
+141.python技巧
+	1.十进制 转 hex
+	  hex(a) 将十进制的a转化成16进制
+	2.串口发送16进制
+	  input = '736e7000ae01FF'    
+    	  ser.write(input.decode("hex"))
+	  print "sending",input.decode("hex")
+	3.得到字符的ASCII码
+	  number = ord(char)
+	  得到字符对应的字符串
+	  char = chr(number)
+	4.判断文件是否存在
+	  import os
+	  if(os.path.exists('record.txt')==True)
+	5.四舍五入
+    	  float a
+     	  round(a)
+        6.跨平台python剪贴板工具
+	  pyperclip(Linux下拒绝使用，因为我用不了)
+	  clipboard
+	  import clipboard
+	  clipboard.copy("abc")  # now the clipboard content will be string "abc"
+	  text = clipboard.paste()  # text will have the content of clipboard
+	
+	  python使用外部命令
+	  linux用python粘贴，用python调用shell中的xdotool
+	  import os
+	  cmd='xdotool key "ctrl+v"'
+	  os.system(cmd)
+
+	7.list 和 array 是不一样的
+	  array转list
+	  from array import array
+	  array.tolist()
+	8.python在字符串中引用变量
+	  方法1：
+		world="world"
+		print "Hello" + world +"."
+	9.解决must be string without null bytes, not str问题
+	        s.strip('\0')
+	10.Json: is a format that stores information as JavaScript
+	   source code in plaintext files.
+	11.python字符串每隔n个字符插入一个换行
+	 import re
+	 s=r"2132131312dsadsare"
+	 s=re.sub(r"(.{n})","\\1\n",s)
+	 print s
+	12.python一行太长用 \ 换行
+	
+	13.python写入文本:
+	file = open('QR_Or_data.txt','w')
+	file.write(data.text())
+	file.close()
+	
+	14.python获取文件列表 filelist 运行外部命令
+		#!/usr/bin/python
+		import glob
+		import os
+
+		filelist = glob.glob("*.txt")
+
+		for txtfile in filelist:
+			command = "Jtxt2jpg " +  txtfile
+			os.system(command) 
+	15.命令行参数
+		import sys
+		sys.argv[1]
+
+	16.三角函数
+		#!/bin/python
+		import math
+		for i in range (0,300):
+				print math.degrees(math.atan(i))
+	17.pip源的修改
+		清华：https://pypi.tuna.tsinghua.edu.cn/simple
+
+		阿里云：http://mirrors.aliyun.com/pypi/simple/
+
+		中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+
+		华中理工大学：http://pypi.hustunique.com/
+
+		山东理工大学：http://pypi.sdutlinux.org/ 
+
+		豆瓣：http://pypi.douban.com/simple/
+		
+		临时:
+		pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyspider，这样就会从清华这边的镜像去安装pyspider库
+
+		永久:
+		~/.pip/pip.conf 添加
+		[global]
+		index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+		[install]
+		trusted-host=mirrors.aliyun.com
+	18.Error: name 'long' is not defined
+		在Python 3.x中直接用int，不再使用long
+	19.
+142.生成高强度密码
+< /dev/urandom tr -dc A-Za-z0-9 | head -c14; echo
+
+143.c语言技巧
+
+	1.动态分配 预先不知道大小的数组
+	https://www.hackerrank.com/challenges/arrays-ds
+	2.四舍五入
+	answer=(int)(total+0.5)>(int)(total)?(int)(total+1):(int)(total);
+	3.定义一个指针但不说明其指向变量的类型，这样的指针叫做 void pointer
+	  写作 void *
+	4.强制类型转换 英文 cast
+	5.一个函数只能返回一个值，如果要想达到返回两个值的这种效果
+	  那就可以用指针
+	6.C语言写入文本
+void save_data(char *filename,int matrix[][HEIGHT],int width, int height)
+{
+    int i,j;
+    FILE *fp = fopen(filename,"w");
+    char buffer[33];
+    if (fp == 0)
+    {
+        printf("Can't open file: %s\n",filename);
+    }else
+    {
+        for(j=0;j<height;j++)
+        {
+            for(i=0;i<width;i++)
+            {
+                snprintf(buffer,sizeof(buffer),"%d",matrix[i][j]);
+                fwrite(buffer,strlen(buffer),1,fp);
+                fwrite("\n",1,1,fp);
+            }
+        }   
+        fclose(fp);
+    }
+}
+	7.分配空间不足引起的错误：‘Stack smashing detected’ 
+
+	8.图像处理中char 转 unsigned char 
+        // Change char to unsigneed char 
+        if (temp < 0)
+        {
+            temp = 256 + temp;
+        }
+	
+	9.找出一个数组array[]中重复次数最多的数:
+	---------------------------------
+	|	|正	|	|正正	|  countArray[i]
+	---------------------------------
+	 ... 7	   8	    9	  10 ...	i
+	新建一个计数的数组countArray,大小为array中最大值
+	countArray中的下标代表array中的数,内容代表数出现的次数
+	程序如下:(有负数的还不行,因为索引不能是负的,若次数一样只会返回一个)
+int find_max(int *array, int elements_num_of_array)
+{
+    int max = -1;
+    for (int i = 0; i < elements_num_of_array; i++)
+    {
+        if(array[i] >= max) max=array[i];
+    }
+
+    return max;
+}
+
+int find_most_repeated(int *array,int elements_num_of_array)
+{   
+    int max_num_of_array = find_max(array,elements_num_of_array)+1;
+    int countArray[max_num_of_array]={0};
+    for (int i = 0; i < elements_num_of_array; i++)
+    {
+        countArray[array[i]]++;
+    }
+
+    int mostTime=-1;
+    for(int i = 0; i< max_num_of_array;i++)
+    {
+        if ( countArray[i] > mostTime)
+        {
+            mostTime = countArray[i];
+        }
+    }
+
+    for (int i=0;i<max_num_of_array;i++)
+    {
+        if(countArray[i]==mostTime)
+        {
+            return i;
+        }
+    }
+
+}
+	10.动态定义数组其实是定义:一.一个首地址　二.数组的类型
+	
+	11.malloc函数的返回值是void* 说的是void* 返回值可以转化为任意类型
+	   并不是void 无返回值; void 和 void * 是不一样的
+	12.C语言伪随机数生成函数　rand()
+	
+	13.修改用户堆栈空间(设置为无限,临时的,以避免段错误)
+	ulimit -s unlimited　
+	
+	14.C语言错误:
+	error: stray ‘\342’ in program 原因:字符的编码不统一可能代码或其中一部分是
+	从其他地方拷贝的　我出现这个问题是负号　“－”从计算器程序里面拷贝过来的,
+	所有出现问题.
+	
+	15.C语言结构体指针作为函数参数,在函数体内部操作结构体的成员.
+	center.x = (*(maximas+i)).X 其中maximas是结构体指针,很多时候报错是因为X前
+	面的括号没有加
+
+	16.C语言一会出现段错误一会儿又没有的可能原因是: 变量没有给初始值
+	   例如像counter这样的变量,一定要初始化.						i
+	17.嵌套函数要注意的东西很多: 变量要分清,因为每次调用自己内部的变量都要重新
+	　初始化,所以有时候必须要用全局变量. 另外要使用外部函数也要注意,代码能少就
+	　少,能在外面做的事情就不要在嵌套函数里面使用.
+
+	18.continue的用法,不跳出循环,只是结束本次循环
+
+	19.Floating point exception 的错误很有可能是分母为0造成的
+
+	20.return： 只有return却没有带返回的值
+	什么也不返回,表示退出函数
+	
+	21.出现段错误的原因:
+		1.只定义了指针，还没有申请指针指向区域的内存空间的时候，就去操作指针了
+		2.
+	
+	22..c文件中主调函数写在被调用函数的后面
+
+	23.一个成员变量比较多的结构体，定以后一定要记得给每个成员赋初值，忘记了
+		的话可能出现段错误，死循环这类的错误。因为那些值的随机的。
+
+	24.条件编译 
+	在项目中防止重复定义的方法:
+	在被调用的头文件中加锁
+	#ifndef _LISTH_
+	#define _LISTH_
+
+	<your code>
+
+	#endif
+	
+	25.函数调用要在变量定义之前（尤其是嵌入式C编程）
+
+	26.expected an expression how to fix it?
+	C99 is selected under Project - Options - C/C++ - Language C
+
+	27.不要用void main() 这种写法
+	
+	28.0在Linux程序管道通信间代表着无错可行的意思
+	
+	29.等号两边使用空格 int complex_int = 100;
+	
+	30.函数尽可能小
+	
+	31.用浮点数比较是否相等是一件十分愚蠢的事
+
+	32.
+	
+144.git 使用方法
+
+    01.git clone https://github.com/laborer/stcflash 
+    
+	廖雪峰:
+	01. git init 初始化一般目录为git目录
+	02. git add readme.txt 添加文件到仓库
+	    git rm --cached pcline 从缓存中移除由add添加过的pcline文件
+	03. git commit -m "wrote a readme file" 将文件提交到仓库
+	04. git status 查看状态　(例如有些文件和上一次提交到仓库的文件有不一样,那么就会显示出来)
+	05. git diff readme.txt  看看readme.txt究竟修改了什么　
+	　　看了修改了什么后使用　git add readme.txt　添加修改,和添加文件到仓库是一样的.
+	06. 添加修改后　用git status查看即将提交的文件
+	07. git commit -m "add main process in the readme.txt" 
+	总结: commit 就是像是生成一个快照,就像打游戏的时候的游戏存盘.
+	版本回退:
+	08. git log 看快照　看历史版本信息 git log命令显示从最近到最远的提交日志 加--pretty=oneline参数显示简洁版
+	　　一长串数字是commit id 这个命令看到的是一个时间线
+	09. 版本回退预备知识:
+	    当前版本HEAD 上一个版本是HEAD^ 上上个版本是HEAD^^ 上一百个版本是HEAD~100 
+	10. 回退到上一个版本:(穿越到古代)
+            git reset --hard HEAD^ 
+	11. 穿越回现代来,你要有个代表现代的东西就是那个commit id 上几个命令行git log可以看到
+	　　git reset --hard 0d4badd3b76ae1b3b66647014a992b02718093bc 这个id号就是代表现代的id号
+	　　倘若连代表连commit id号你都找不到了,谢天谢地.
+   	    git reflog 记录了你的每一条命令　前面记录了所有的版本的id
+	12.在官网上添加一个仓库，然后在本地
+	git remote add origin git@github.com:HuangJiaLian/LearnMake.git 
+	将仓库中的文件pull到本地
+	git pull origin master
+	将本地提交好的文件push到github官网
+	git push -u origin master　
+	撤销最后一次操作
+	git commit --amend	
+	13. github 版本回滚
+	https://segmentfault.com/q/1010000009800764
+		1. git reset --hard xxxx
+		2. git push origin master --force 
+	14. 删除本地的文件后想要恢复
+	git reset --hard origin/master
+
+145.linuxmint 安装无线网络驱动　8176 Realtek Semiconductor Corp. RTL8188CUS
+	git clone https://github.com/FreedomBen/rtl8188ce-linux-driver
+
+146.pdf editor
+	Master PDF Editor 
+
+147.viewer image in linuxmint 
+	xviewer
+
+148.拓扑
+	拓扑学(topology)是研究几何图形或空间在连续改变形状后还能保持不变的一些性质的学科。它只考虑物体间的位置关系而不考虑它们的形状和大小。
+
+149.电气特征：电气特性一般来说:是指某个用电设备(或元件)在电气方面如电压、电流、导电性能等等方面所具有的特性。
+
+150.Linux pdf vi style reader Zathura
+
+151.Linux 定时提醒
+sudo apt-get install workrave
+
+152.Python内置了“try/except”条件执行结构，用来解决意料之中和意料之外的错误。
+    这两个语句是python的保险单。
+
+153.Linux的问题和解决方法。
+	1.自己的命令如何自动补全？
+	你可能想问的是参数的自动补全，但是不见得是一个很好的选择。
+	2.
+154.什么叫？
+	1.固件：固件（firmware）一般存储于设备中的电可擦除只读存储器EEPROM(Electrically Erasable Programmable ROM)或FLASH芯片中，一般可由用户通过特定的刷新程序进行升级的程序。
+	2.缺省：老一輩计算机专家翻译犯下的错，就是默认的意思。
+
+155.linux工具
+	键盘精灵：xdotool
+	
+	sublime:
+	a.设置 tab变空格
+	Settingjs - User 打开 Preferences.sublime-settings
+	添加 "translate_tabs_to_spaces": true 并确保
+右下角Tab Width：4
+
+	b.sublime vim setting
+	Preferences->Setting-User Add "ignored_packages": []
+
+	c.设置go to difinition
+	Sublime Text -> Preferences -> Key Bindings - User
+	[
+	    {
+		"button": "button1", 
+		"count": 1, 
+		"modifiers": ["ctrl"],
+		"press_command": "drag_select",
+		"command": "goto_definition"
+	    }
+	]
+	
+	linux下局域网文件共享工具:
+	NitroShare
+	混音工具
+	Mixxx
+	fortune的使用
+		1.原始素材放在这里面:(文本和索引)
+		/usr/share/games/fortunes
+		文本的格式是每条谚语用%隔开
+		索引(.dat)文件的创建　strfile <fortuneFile> <fortuneFile.dat>　
+		2.调整输出概率
+		fortune 25% fortunes 25% chinese 25% tang300 25% song100
+	超强的日志查看器 lnav
+	
+	小巧实用的pdf查看编辑器
+	Xournal
+	pdf剪切重排
+	pdfmod	
+	图表工具类似Visio
+	calligra flow
+	
+	git客户端
+	gitkraken
+	
+
+	好用的串口调试工具
+	picocom 使用方法 picocom -b 115200 /dev/ttyUSB0
+
+	
+	终端会话录制:
+	script -t 2>time.txt session.typescript # 录制开始
+	# your commands
+	exit # 录制结束
+	回放:
+	scriptreplay -t time.txt session.typescript　
+
+	看图工具
+	eog
+
+	proxychains
+	命令行翻墙代理， 配置文件 /etc/proxychains.conf
+
+	文档按列拼接
+	paste text01.txt text02.txt 
+	
+156.特殊符号的英文读法：
+	# hash
+	() round brackets
+	; semicolon
+	, commas
+	{} curly bracket
+	{ opening bracket
+	} closing bracket
+	<= less than or equal to
+	* asterick
+	
+157.生成格式的书籍
+	www.magicbookproject.com
+
+158.neofetch
+    用来显示系统信息
+    vi ~/.config/neofetch/config 用来配置
+    可以显示很多信息 包括内网 和 公网 ip
+
+159.linux下找文件
+    sudo find ~ -name processing 在 home 目录找 名字为processing 的文件
+	
+160.linux下回复删除的文件 
+    rm nosdos.jpg
+    foremost -t jpg -i /dev/sda1 -o /home/gacanepa/rescued
+    /dev/sda1 是被删除文件的硬盘(用df -h 可以确定) 输出文件夹最好是另外一款硬盘 
+    想要找回文件 那么找之前最好不要在电脑上有太大的动作
+	
+161.linux中查看时区的方法
+    cat /etc/timezone 
+
+162.nsnake 终端贪吃蛇
+
+163.Camicri Cube: 可离线的便携包管理系统 
+
+164.linux下的USB抓包工具usbmon的使用方法
+sudo mount -t debugfs none /sys/kernel/debug
+sudo modprobe usbmon
+sudo cat /sys/kernel/debug/usb/devices
+
+165.备忘录
+www.tutorialspoint.com/
+
+166.树莓派修改软件源
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 
+    sudo vim /etc/apt/sources.list
+    注释原来的改成现在的两行
+    deb http://mirrors.aliyun.com/raspbian/raspbian/ wheezy main non-free contrib
+    deb-src http://mirrors.aliyun.com/raspbian/raspbian/ wheezy main non-free contrib
+    最好一直用官方的源，否则容易出现依赖关系不满足的情况
+
+167.君正X1500开发环境的搭建
+	1.我们的产品是X1500还是X100?
+	内部其实是一样的
+	2.这两种产品是不是一样的?我们用的开发板是否和YAK板的类似?还是phoenix?
+	不用管这么多	
+	3.怎么裸奔程序?
+	不要裸奔
+	4.怎么在烧写系统镜像?
+	5.主机写程序用专用的GCC吗?
+	mips用的GCC,交叉环境的搭建已经完成
+	6.怎么下载应用程序？
+	7.需要用到tftp等环境的搭建吗?
+	8.官方的历程在哪里?
+	ssh远程同步
+	9.如何咨询工程师?
+	邮件联系陈五洋工程师
+	10.Manhattan是什么?
+		一个linux系统？
+	11.难道不是在电脑端编译再下载到开发板，而是直接在开发板上的linux系统中编译？
+	是正常的交叉编译，先在计算机上面用mips的编译器编译，再下载到开发板中。
+168.2017年工作中解决的问题:
+	1.在WPS的表格中可以生成方框图，便于画二维码，怎么打印出来还是问题？
+	2.VS 2012 C++项目打包的步骤：
+		a.项目1编译成功
+		b.安装InstallSheild
+		c.创建InstallSheild项目2用来打包项目1生成的exe文件
+		d..net Framwork 4.5 full pacakege 勾选，添加exe文件和一些你的工程中用到的文件.
+		e.在工具栏 生成->配置管理器 里面配置生成 SingleImage
+		f.生成 exe 安装文件 很简单
+	3.得到一个二维码的矩阵我就可以解除二维码，如今的问题是如何利用图像
+	处理得到这个矩阵
+	4.针对同一个掩码,对任意码做两次异或，即可得到原始的码字
+	5.QR掩码操作从右下角开始,encoding type 4bit也是从右下角开始走Z字形
+	6.利用python模块pyqrcode得到010101这样的二维码便于放在矩阵当中去
+		import pyqrcode
+		number = pyqrcode.create(123)
+		print(number.text())
+	  生成的字符码用vi去掉多余的东西.
+	7.USB通信问题的解决：
+	下位机使用同步传输(视频模式),上位机linux:
+	使用pygame的getrawdata获取数据
+	
+	下位机使用批量发送一次发64 Byte，上位机windows
+	使用libusb-win32 C++(VS2012)写接收数据程序
+	使用OpenCV4.9 C++ (VS2012)显示接收到的图片
+	(要利用下载libusb的附加软件安装对应设备编程所要用的驱动)
+--------------------------------------------------------------
+Jack Huang 11:44:06
+朋友，你好。我在电脑上面参考官方的历程用libusb-win32写了一个USB批量传输接受的程序，我也不知道对不对，我得有一个配套的设备进行测试。今天上午我尝试去修改新塘N32905提供的U盘测试程序，但是我发现例子里面只有初始化U盘的代码，没有任何关于数据传输的代码。我在头文件里面看到唯一两个关于数据传输的函数是void mscdSDRAM2USB_Bulk(UINT32 DRAM_Addr ,UINT32 Tran_Size);和void mscdUSB2SDRAM_Bulk(UINT32 DRAM_Addr ,UINT32 Tran_Size);但是我感觉也不对。 而USB core library 里面有关于批量传输的函数，但是这应该是作为USB主机的编程。所以应该也不对。 我想请你给我一点建议， 非常感谢。
+王学文-新塘群 11:48:08
+你试下用SDRAM2USB_Bulk的函数往PC发数据
+Jack Huang 11:48:45
+好
+王学文-新塘群 11:48:51
+你现在用libusb找到设备了没有？
+Jack Huang 11:49:00
+找到了
+Jack Huang 11:49:17
+哦 不是 是可以找到USB设备
+Jack Huang 11:50:03
+我没有用开发板测 我用了一个HID设备让libusb识别
+Jack Huang 11:50:08
+可以识别
+Jack Huang 11:50:22
+我先去试试
+王学文-新塘群 11:52:05
+HID设备通常是不用bulk端点的
+王学文-新塘群 11:52:50
+你装个bushound，可以用来抓usb数据包
+Jack Huang 11:52:56
+哦 我还用正常的U盘，libusb还是能够识别到
+王学文-新塘群 11:53:09
+U盘可以
+Jack Huang 11:53:24
+好  我电脑上面有装这个软件
+王学文-新塘群 11:54:12
+你抓下U盘的bulk数据包，然后用libusb的bulk write/read收发一次，看能否抓到同样的数据
+王学文-新塘群 11:54:34
+先把libusb搞熟了，再去调新唐的芯片
+Jack Huang 11:55:52
+我有个问题 U盘不会主动发数据给libusb啊
+王学文-新塘群 11:56:27
+不会，U盘的通讯都是问答式的
+王学文-新塘群 11:57:09
+PC发一个31字节的命令包，U盘返回13字节的状态包
+王学文-新塘群 11:57:25
+中间可能会附带数据包，你先不管数据包
+Jack Huang 11:58:23
+哦 也就是说要发一个数据包给USB,然后再接受U盘的数据
+Jack Huang 11:59:12
+我去试试
+王学文-新塘群 11:59:53
+你用bulk write写31字节数据，按照U盘的标准命令格式，用bushound抓一条（例如init query获取U盘的信息,或sense命令查询U盘状态）,然后用bulk read读13字节的包
+王学文-新塘群 12:00:37
+sense命令只有31字节命令和13字节状态，init query命令的话，返回的数据会附带数据包及状态包
+王学文-新塘群 12:00:49
+建议你用sense命令
+王学文-新塘群 12:01:01
+一条bulk write,跟着bulk read
+Jack Huang 12:03:55
+我的去消化一下你说的这些。现在对libusb还不太熟悉。
+Jack Huang 15:10:53
+ 
+Jack Huang 15:11:11
+ 
+Jack Huang 15:11:48
+我不清楚 发sense命令怎么发。
+Jack Huang 15:12:27
+我这里写的是 char command_sense[BUF_SIZE]="sense";
+Jack Huang 15:12:42
+我想应该是错的
+王学文-新塘群 17:57:47
+不对
+王学文-新塘群 18:00:22
+ 
+王学文-新塘群 18:00:51
+你试下这个
+test unit ready的命令
+王学文-新塘群 18:01:22
+发上面的31字节，如果接收到13字节的数据说明就对了
+Jack Huang 21:18:27
+ 
+Jack Huang 21:18:27
+我想可以了！ 好高兴。
+王学文-新塘群 21:34:52
+ 
+Jack Huang 21:37:01
+ 晚安！ 我叫黄杰。
+王学文-新塘群 21:38:33
+Hi
+Jack Huang 21:39:08
+hello.
+ 2017-02-05 
+Jack Huang 09:33:22
+王学文，新年好！ 昨天我咨询新塘的工程师写好了N32905批量发送的程序，电脑端也能够正常的接收，不过又出现了一个问题。上位机我使用libusb-win32编写的接收程序，一次最大接收的自己的数是64Bytes， 若是开发板一次发送的的数据量超过64Bytes,那么上位机就接受不到数据。 这个问题我在网上搜了，好像是我写的程序默认endpoint的速度是 Full Speed(64个字节)，但是我不知道怎么设置成High Speed(512Byte).
+王学文-新塘群 11:42:05
+新年好！
+王学文-新塘群 12:19:38
+64/512只是USB单个包的大小，超过包大小时可以连续发送多个包直至发完
+王学文-新塘群 12:22:55
+PC端在调用bulk read时，size直接写你想要读取数据的大小，在底层会自动分包的
+王学文-新塘群 12:25:10
+假如你要读4K数据，在设备端就传512x8或64x64的包，PC直接接收4K的数据
+王学文-新塘群 12:28:21
+在设备端发送多个包时，只要包大小等于0或小于端点定义的包大小或带有Data End标志，均视为包传送结束
+Jack Huang 15:28:55
+好，我正在尝试分包发送。这个速度确实快多了。
+Jack Huang:
+非常感谢你啊，我用USB传输图片已经做好了。最后我还请问你是怎么学习USB的，虽然这个东西我做出来了，但是我还有很多USB的知识不懂。网上有很多资料，但是有点理不出头绪。我觉得你很了解USB,所以我想问问你我应该怎么去深入的学习。
+王学文:了解ctrl\bulk\iso\int传输的区别，了解ctrl传输中的std\class\vendor请求的区别，了解bulk同步/异步传输 
+王学文:以上的你熟悉了，USB就基本掌握得差不多了
+--------------------------------------------------------------	
+	8.2017.2.15
+	君正远程数据同步的步骤
+		1.本机生成ssh的key:
+			输入ssh-keygen 一路回车 不用设置密码
+			生成的id_rsa.pub发给君正的工程师添加
+		2.mkdir project_workspace
+		cd project_workspace
+		wget http://git.ingenic.cn:8082/bj/repo
+		chmod +x repo
+		./repo init -u ssh://sz_halley2@183.62.141.5:29418/mirror/Manhhatan/halley2/platform/manifest.git -b ingenic-linux-kernel3.10.14-halley2-v2.0-20160411 -m boards/yak.xml
+		./repo sync
+
+	解矩阵QR序号始终要从右下角开始,二维数组最好是用矩阵操作。
+		
+	9.2017.2.16
+	嵌入式开发的基本流程：uboot,linux,文件系统制作等
+	BSP(Board Support Package)板级支持包介于主板硬件和操作系统中驱动层程序之间的一层，一般认为它属于操作系统一部分，主要是实现对操作系统的支持，为上层的驱动程序提供访问硬件设备寄存器的函数包，使之能够更好的运行于硬件主板
+	SDK(Software Development Kit):软件开发工具包，一般都是一些软件工程师为特定的软件包、软件框架、硬件平台、操作系统等建立应用软件时的开发工具的集合。
+	10.2017.2.17
+	行反序,字符反序：使用在QR 矩阵的旋转上面	
+	linux下面的命令行:一条命令就搞定了
+	rev QR_Matrix.txt | tac
+	解释: rev是每一行字符的反序输出
+	      tac是没一行反序输出
+	
+	python 已知 ascii 码得到字符：
+	chr(101) 非常简单
+	
+	QR解码时的路线有4种形态0,1,2,3,0,1,2,3,0,...
+	遇到边界改变形态,遇到结束符就可以结束了.
+	
+	11.2017.2.20
+	mips交叉编译环境的搭建:
+	export PATH=/home/jack/project_workspace/prebuilts/toolchains/mips-gcc472-glibc216/bin/:$PATH
+	export LD_LIBRARY_PATH=/home/jack/project_workspace/prebuilts/toolchains/mips-gcc472-glibc216/lib/
+	
+	QR数据区域:
+	如果不考虑纠错,一个for循环,次数为读出的信息的长度
+	for x in range(Information_Bytes):
+    		print chr(read_one()),
+	read_one()是很重要的函数 在调用这个函数之前要给定一个坐标，由全局变量 current_x  current_y 来
+	确定,这个函数自动判断是否碰到墙壁,碰到了反弹,所谓的反弹就是改变一种"行走"的模式,用程序中的type来实现
+	0,1,2,3,0,1,2,3,0,...这样不停的循环
+	
+	12.2017.2.22
+	QR解码的准备工作:
+	1.通过一张图得到一个灰度值的表
+	2.利用表得到一张图
+	
+	QR解码的疑问: 
+	1.旋转后的图片是否需要转正后进行处理?还是直接处理,得到比较合适的矩阵后
+	的，再进行一个旋转的过程?
+	2.如何实现一个比较好的二值化算法?
+	Niblack method 有说是最好的二值化算法
+    otsu已经实现
+    还有一种方法，首先讲图片分成４个区域　计算每个区域的平均像素值作为阈值
+    之后按区域二值化
+	3.倾斜的图片怎么放平?
+	4.怎么确定一个模块的宽度?
+	6.怎么利用模块的宽度去判断0和1?
+	7.怎么确定图片是怎么倾斜的?
+	8.QR codes are algebraically decodable in a polynomial number of operations. 这句话怎么理解?
+	9.Golay code ,是什么？
+	10.可以使用2D DFT 计算出频率的信息吗?
+	应该可以，但是要看看具体怎么做.
+    11.利用原来的定位方法是基于旋转倾斜不严重的情况吗?
+	
+	11.图像处理要做的事情有哪些?
+		1.Image binarization 
+		2.image tilt correction(倾斜矫正)
+		3.image orientation(定向)
+		4.image geometric correction(Affine transformation,可能
+		会用到alignment patterns in symbol.)
+		5.image normalization(Image Sampling)
+		
+		1.RGB -> Gray
+		2.Binarization[有种东西叫做多级阈值法Liu et al. [2008] used multi-level threshold to deal with]
+		3.Corner detection(找QR码的4个角,找定位点,找旋转角度)[就是说有两种方式去找这个QR码1.找定位点 2.找角]
+		,扭正(插值),)
+		4.
+	
+	人们都做过什么:
+	1.解码：使用non-algebraic方法:permutation method,Kasami’s error-trapping method,the covering polynomial technique,nd the t-design decoding method
+		使用algebraic-decoding的方法:很多
+	现在有一种方法:Lookup Table Decoding (LTD) algorithm to decode the binary systematic (47, 24, 11) QR code up to five errors is now proposed.	
+	
+	2.使用BM算法,什么是BM算法?
+	Berlekamp-Massey (BM) algorithm是解正常QR码的吗?
+	3.通常我们照的图像只是发生了线性的畸变.
+	4.找到定位点了之后，可以确定旋转的角度，纠正的时候可能会有插值的操作
+	5.什么叫做Hough transform？QR识别算法会用到
+
+	
+	
+169.opencv相关C程序的编译命令:
+	gcc Test.c -o Test `pkg-config --cflags --libs opencv`
+	g++ -g open_text.cpp -o 01_open_text `pkg-config --cflags --libs opencv`
+
+170.
+zbar源码编译的问题解决：v41l
+sudo apt-get install libv4l-dev
+sudo ln -s /usr/include/libv4l1-videodev.h   /usr/include/linux/videodev.h
+No package 'MagickWand' found:
+sudo apt-get install libmagickwand-dev
+
+No package 'pygtk-2.0' found：
+sudo apt-get install python-gtk2-dev
+
+Missing QtCore:
+sudo apt-get install qt4-dev-tools libqt4-dev
+
+error:/usr/include/x86_64-linux-gnu/bits/stdio2.h:140:1: error: expected identifier or ‘(’ before ‘{’ token:
+
+cd zbar-0.10
+sed -i 's|linux/videodev.h|libv4l1-videodev.h|g' zbar/video/v4l1.c include/config.h.in configure.ac configure
+./configure --prefix=/usr --without-gtk --without-python
+make
+
+171.gdb使用:
+set args pixel_data/pixel_data-zhuan1.txt
+s: step in 进入函数的内部 
+172.linuxmint的开机开启输入法,只需要在sessions开启启动里面添加一项fcitx命令,用来自动开启输入法框架.
+
+173.组合数公式
+	 __ n
+	/
+	|     = (m!)/[(n!)*((m-n)!)]
+	\__ m
+
+174.linux使用小技巧:shell使用vi模式
+set -o vi 可以在.bashrc中添加
+
+175.天气预报城市代码的查询网址http://openweathermap.org
+输入城市名称后，注意看浏览器的地址后面的数字，那就是城市代码
+
+176.英语
+	1.Placement在下方
+	2.Vertical and horazental speaking 
+          要垂直而不要水平,垂直就是面部放松,不要将嘴水平拉长
+          例子: easy hat bed same vacation
+	3.Ending voice 很弱. 
+	  flowers 的s要弱的听不出来是s还是z
+	  但作为另一个的开始就要强很多的
+	  例如 flowers on the table 这个z就听出来了
+	4.如何发长的单词,主次要分的特别明显.
+	5. ^ 的发音要领，放松，声音从胸腔出来，拉粑粑刚出来那一瞬间的声音
+	6.嘴唇放松的方法 做金鱼嘴型 学老家傻子开摩托车 u i u D 的交替
+	
+
+177.Android
+	1.一个Android工程包含多个模块
+	Android app modules
+	Library modules
+	Google App Engine modules
+	2.All the build files are visible at the top level under Gradle Scripts 
+	3.所有的modules包含3个东西
+		manifests: Contains the AndroidManifest.xml file.
+		java: Contains the Java source code files, including JUnit test code.
+		res: Contains all non-code resources, such as XML layouts, UI strings, and bitmap images.
+	4.
+
+178.linux技巧
+	1.linux下使用了老D博客后要把浏览器里面的XX-net的自动选择是否代理取
+	　消了,就可以直接使用google.
+	2.linux下直接从命令行获取程序的源代码(Mint) 下载源码　
+	  a.在软件源管理软件中勾选源仓库
+	  b.sudo apt update
+	  c.sudo apt-get build-dep <package> 安装编译源码的依赖
+	  d.sudo apt-get source <package> 获取源码
+
+	3.非管理员使用串口
+	Linux下的设备使用都需要使用sudo或root用户才能打开，为了能让普通用户也能使用串口，
+	可以增加udev规则来实现，具体方法如下：
+	sudo vim /etc/udev/rules.d/70-ttyusb.rules
+	增加如下内容：
+	KERNEL=="ttyUSB[0-9]*",MODE="0666"
+	
+	4.换新的linux电脑时这几个文件要备份
+	  .bashrc
+	  .vimrc
+
+179.linux 文件传输 文件同步 云储存
+	BitTorrent Sync 点对点的文件传输 速度很快 不需要中间服务器
+	树莓派上可以使用: ./rslsync --webui.listen 0.0.0.0:8888 
+	然后在PC端的浏览器上面可以使用http://192.168.1.110:8888 来管理同步
+	坚果云 总容量不限 每个月限流量
+	MegaSync 总免费容量50G 
+
+189.获取电脑硬件信息：
+	inxi -F 逆天了
+
+
+190.makefile
+	1.makefile主要用在大程序里面，文件多，不好管理编译的情况下。
+	2.makefile可以解决修改一点代码要全部重新重新编译的缺点
+	3.
+-----
+TEMP
+-----
+Mathematica Sync 分享地址
+BSDAVXIS55OTTEFZQHPJCZTMSCS3HW67N
+
+191.食谱菜谱
+	1.海鲜菠萝饭
+	食材：煮熟的米饭，菠萝，鱿鱼，虾，瘦肉片，鸡蛋，豌豆玉米粒
+	红萝卜丁
+	步骤:
+	1.炒鸡蛋，煮豌豆玉米萝卜丁起锅备用
+	2.炒鱿鱼，鲜虾，瘦肉， 后加入豌豆玉米红萝卜
+	3.加米饭炒均匀，加适量盐
+	4.最后加入菠萝丁翻炒
+
+192.shell技巧
+	0.命令行参数 $0 $1 超级简单
+	1.date | tr -d " :A-Za-z" 只保留数字
+	2.连接两个字符串:
+		a='hello'
+		b='world'
+		c=$a$b
+		echo $c
+	3.
+193.建站教程
+	1.购买主机
+	2.购买域名
+	3.域名绑定到主机
+	4.域名备案(耗时20个工作日左右)
+	
+
+194.读音
+	RTOS读作 are-toss
+
+195.生活技巧
+	购票注意事项:
+		1.日期
+		2.时间
+		3.车站名字(东西南北)
+		4.身份证
+		5.几百块的现金
+		6.两张寸照
+		7.充电宝,好的电源线
+		9.平和的心境
+
+196.简写，缩写
+	1.HCI Human-Computer Interaction
+	2.
+
+
+
+
+
+https://wiki.ubuntu.com/Audio/UpgradingAlsa/DKMS
+sudo apt-get remove oem-audio-hda-daily-dkms
+
+
+内核升级，比较受影响的是硬件驱动，软件一般不受影响
+
+
+目标：valgrind Massif学习 完成 
+前期准备:
+栈：栈（操作系统）：
+• 由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈  
+• 栈由系统自动分配，速度较快。但程序员是无法控制的。
+• 栈使用的是一级缓存， 他们通常都是被调用时处于存储空间中，调用完毕立即释放。
+• 只要栈的剩余空间大于所申请空间
+•  在函数调用时，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向函数的返回地址，也就是主函数中的下一条指令的地址，程序由该点继续运行。
+• 例如，声明在函数中一个局部变量int b; 系统自动在栈中为b开辟空间
+	
+堆：
+• 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链表。
+• 堆则是存放在二级缓存中，生命周期由虚拟机的垃圾回收算法来决定（并不是一旦成为孤儿对象就能被回收）。所以调用这些对象的速度要相对来得低一些。
+• 堆是由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便.
+• 首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻 找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。
+• 一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容由程序员安排。
+
+• 如p1 = (char *)malloc(10);
+
+存取比较: 
+char s1[] = "aaaaaaaaaaaaaaa"; 		// 入栈
+char *s2 = "bbbbbbbbbbbbbbbbb"; 	// 入堆
+aaaaaaaaaaa是在运行时刻赋值的；
+而bbbbbbbbbbb是在编译时就确定的；
+但是，在以后的存取中，在栈上的数组比指针所指向的字符串(例如堆)快。
+
+堆和栈的区别可以用如下的比喻来看出：
+使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。
+使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。
+
+总结一下: 我们内购直接操作的内存是堆:heap 
+所以valgrind Massif 的主要对象是堆? 
+
+
+Linux中Swap（即：交换分区），类似于Windows的虚拟内存，就是当内存不足的时候，把一部分硬盘空间虚拟成内存使用,从而解决内存容量不足的情况。
+Linux 查看交换分区: free -mh
+
+
+意外收获: 裸机程序使用malloc和free这类函数是要出现问题的，因为裸机是没有内存管理单元MMU的	
+http://blog.csdn.net/chenyuwen789/article/details/48523793
+说得很有道理，我最近就遇到这个问题，写的程序在PC端使用没有任何问题，但是移植到裸机开发板上面就时不时出现死机等莫名的因素。程序里面就使用了malloc 和 free 这样的函数，估计问题就出现在这里。 
+
+valgrind Massif学习
+0.Massif is a heap profiler 堆栈测试仪 
+• 可以测试有用的堆空间，也可以测试多余的用来对齐的堆空间， 甚至可以测试栈空间（默认没有开启该功能）
+• 目的就是降低程序内存使用
+• 加快程序运行（ a smaller program will interact better with your machine's caches and avoid paging）
+• 当程序使用了大量的内存时，避免耗尽机器的交换空间(裸机好像没有什么用）
+• 不仅告诉你你的程序使用了多少堆空间，还会非常详细地告诉你，程序的哪一部分消耗了多少堆空间
+1.内存泄漏问题，我们有memcheck工具来检查。很爽。但是有时候memcheck工具查了没泄漏，程序一跑，内存还是狂飙。这又是什么问题。。。
+其实memcheck检查的内存泄漏只是狭义的内存泄漏，或者说是严格的内存泄漏，也就是说，在程序运行的生命周期内，这部分内存你是彻底释放不了了，即，你失去了这些地址。
+其实还有第二种类型的内存泄漏，就是，长期闲置的内存堆积。这部分内存虽然你还保存了地址，想要释放的时候还是能释放。关键就是你忘了释放。。。杯具啊。这种问题memcheck就不给力了。这就引出了第二个内存工具valgrind –tool=massif。
+2.massif 可以的帮我们发现很多问题，比如现实中总是遇到一些内存一直上涨，可以就是没有memory leaker的情况， 其实这样的情况并不奇怪，非常容易发生，比如每次循环的时候你并没有把上次的内存释放，同时不断在后面添加更多的内容，这显然不会有memory leaker，倒是到了一定的程度，自然会发生bad alloc的问题。对于这样的问题massif就可以大显身手，比较一下两个内存的切片，增加的部分自然就发现了
+
+3. 
+gcc  -g -o   test test.c 
+valgrind --tool=massif ./test 输出一个测试文件
+ms_print massif.out.4144   输出1.随时间变化，堆消耗的变化 
+
+
+Massif uses "instructions executed" as the unit of time 一条指令运行的时间 作为 时间单位
+we can use the --time-unit=B option to specify that we want the time unit to instead be the number of bytes allocated/deallocated on the heap and stack(s). 这样之后的时间单位为 从堆区 申请/删除一个bytes所用的时间 
+
+Each vertical bar represents a snapshot, 每个竖直的条代表一个快照
+ :  代表一般快照
+@ 代表详细
+# 代表内存消耗最多的快照
+
+
+
+目标: 内存池的设计
+
+目标: 将Jquirc改成内存池的模式
+
+
+
+For permanent change you'll need to edit your /etc/default/grub file -- place a "#" symbol at the start of line GRUB_HIDDEN_TIMEOUT=0. 
+sudo update-grub 
+
+
+sizeof(char*)= sizeof(int*)
+
+
+197.个人网站维护 www.linuxforstudents.com 
+文章编辑:
+继续阅读
+<!--more-->
+
+198.sublime fortran 支持
+https://www.douban.com/note/542191095/
+https://github.com/textmate/fortran.tmbundle
+
+199.生成在某个范围内的随机整数 随机数
+for((i=0;i<20;i++));  do echo $(seq -30 30 | shuf -n 1); done;
+
+200.国税开票二维码
+http://www.bjsat.gov.cn/bjsat/bsfw/tzgg/201707/t20170713_293409.html
+
+201.重新装一个linuxmint总会把引导弄好
+
+202.SVN:URL,账号,密码:
+https://jdt-svn.xicp.io/svn/Falcon_DM
+Jack_Huang
+jack7890
+
+203.有趣的github项目
+翻译软件:
+https://github.com/HugoWen/youdao_spider 
+https://github.com/wufeifei/dict
+https://github.com/guangmuzhu/GoldenDict-Dictionary-Programs
+// 词霸,划词
+https://github.com/FindHao/ciba
+// 百度TTS
+https://github.com/catplant/say-hello
+
+204.在线条码生成
+
+205.屏幕录制
+Kazam，要使用webm格式在windows和安卓平台才可以看
+vokoscreen
+206.color piker 颜色
+gcolor2
+
+207.C语言/c语言函数调用图的制作 call graph
+egypt在使用之前要在gcc编译的时候添加参数 -fdump-rtl-expand 
+那么在编译后就会生成一些.expand的文件，利用这些文件即可生成程序的调用关系，用dot语言描述，然后用dot程序
+去显示这个图片
+egypt *.expand | dot -Gsize=3000,3000 -Grankdir=LR -Tsvg -o call_graph.svg
+
+208.打字音效
+执行sudo easy_install tickeys or sudo pip install tickeys安装
+然后通过 sudo tickeys 来打开 (sudo tickeys -c 打开CLI版本)
+https://github.com/BillBillBillBill/Tickeys-linux/
+
+209.tonido 
+http://huangjie.tonidoid.com/ui/core/index.html
+
+210.zint 二维码生成软件 
+zint-qt 
+
+211.tonido 
+cd /usr/local/tonido
+./tonido.sh start
+https://huangjiefalcon.tonidoid.com 
+http://192.168.1.120:10001
+
+
+
+212.视频格式转换
+ffmpeg -i input.mp4 output.avi
+
+213.网络视频监控 运动监控
+motion
+
+214.内网穿透 nat123
+ssh pi@52086981.all123.net
+树莓派 0086991.all123.net
+
+215.函数调用图call graph
+添加gcc的编译选项:-fdump-rtl-expand 使其在编译的过程中生成中间文件，类型为 .expand
+用Egypt处理.expand文件使其生成.dot 文件
+用graphviz处理.dot 文件，生成callgrapph
+
+216.如何写报告:
+你这个文档到底要解决什么问题，读者是谁，范围是什么，文档是如何组织的
+
+
+217.linux下查看wifi密码
+cd /etc/NetworkManager/system-connections/
+ls -a
+sudo cat WIFI_SSID_Name 
+
+218.mint xfce 壁纸默认地址 /usr/share/xfce4/backdrops/
+
+--------------------------------------------------------------------
+考试相关:
+	现场确认:
+		时间:
+			11月9号上午
+		地址:
+			攀枝花学院档案馆一楼——外语多功能厅（攀枝花学院东大门（靠三中校门口）上行200米右侧
+		材料:
+			身份证(原件复印件) 毕业证（原件复印件） 512094989 
+		
+	准考证:
+		下载准考证时间：2017年12月14日～2017年12月25日（24小时开放），考生可用学信网的用户名和密码登录研招网，进入网上报名栏目下载。
+		2017年12月14日至12月25日，考生可凭网报用户名和密码登录“研招网”下载打印《准考证》。《准考证》使用A4幅面白纸打印，正反两面在使用期间不得涂改。	
+	
+	报名号:
+		填写成功！您的报名号：512094989请牢记！
+	
+	12月23日上午 思想政治理论、管理类联考综合能力
+
+	12月23日下午 外国语
+
+	12月24日上午 业务课一
+
+	12月24日下午 业务课二
+
+	上午 8:30-11:30 思想政治理论
+	下午 14:00-17:00 外国语
+　　上午 8:30-11:30 业务课一
+　　下午 14:00-17:00 业务课二
+219.linux gif 制作 peek
+	在线gif编辑制作 https://ezgif.com/
+220.公众号AppSecret 9e9b4a71f33e878c6f80580a50697c16 
+	AppId:wx3ed820bfcf2da242 
+230.出现依赖关系错误的时候
+	sudo aptitude install 软件 很智能
+231.免费资源 https://www.packtpub.com 
+
+232.计算机视觉书籍
+	http://www.deeplearningbook.org/
+	http://szeliski.org/Book/
+
+233.vscode tabs to spaces or vice versa
+F1
+indentationToSpaces/indentationToTabs
+Enter
+
+234.切换Fn的状态
+Dell上的按键是: Fn + Esc
+
+235.Google搜索设置Open In a New Tab by Default
+- 1. 打开google主页
+- 2. 在右下角找到Setting
+- 3. 找到 Search Setting
+- 4. 勾选 Open in a new window
+
+236. Markdown语法
+mermaid : https://blog.csdn.net/Subson/article/details/78054689
+typory: Menu → Preference->Open Advanced Settings-> edit conf.user.json
+Keybinding
+
+
+237. import gym 不成功
+pip uninstall gym
+pip install gym==0.9.5
+
+238. Docker 提示权限问题
+sudo adduser $USER docker
+logout then login 
+go_vncdriver was installed without OpenGL support:
+```python
+pip install --no-cache-dir --ignore-installed --upgrade go_vncdriver
+```
+
+
+239.量子网络
+ 不确定性就意味着信息
+
+
+240.可以看见登录界面，没有办法登录的原因
+user id 发生了改变
+```bash
+cat .xsession-errors
+stat . 
+cat /etc/passwd | grep xuxin
+sudo chown xuxin:uers -R ../xuxin
+```
+
+241. conda 
+- 清空缓存
+`conda clean --all`
+
+242. 转化socks5 to http proxy
+polipo
+export http_proxy=http://192.168.3.175:8123
+
+
+243. 图像处理的C++库
+CImg
+
+244. 修复引导加载使用的工具
+boot-repair 
+
+245. kiddle 图书网站
+http://www.yizhanshu.com/
+
+246. pip 使用代理
+export all_proxy=socks5://127.0.0.1:1080"
+pip3 install whatever
+
+
+247. 
+温州大学官网:
+http://www.wzu.edu.cn/
+
+温州大学教师介绍:
+http://sdxy.wzu.edu.cn/szdw1/szjs.htm
+
+
+248.卡号
+福建ICBC: 
+621226 1402040897958
+
+温州ICBC:
+622203 1203004782873
+
+福建 CCB1:
+6217 0018 2003 4480 941
+
+福建 CCB2:
+6217 0018 2003 3849 054 
+
+福建 SPD BANK:
+6217 9236 7173 4050
+
+温州大学 ID:
+184511084146
+
+电话:
+19934416201
+
+249.看电影的网站
+五杀电影院
+樱花动漫
+
+250. vps
+搬瓦工
+
+251.学习的网站
+https://edu.gcfglobal.org/en/
+
